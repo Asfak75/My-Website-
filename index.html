@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,11 +7,61 @@
   <meta name="description" content="Professional personal services with simple WhatsApp ordering.">
   <title>Personal Services</title>
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Hide the website until authentication is verified -->
+  <style>
+    html.auth-checking body {
+      visibility: hidden !important;
+    }
+  </style>
+
+  <script>
+    document.documentElement.classList.add("auth-checking");
+  </script>
+
+  <!-- Instant authentication gate -->
+  <script type="module">
+    import { supabase } from "./js/supabase.js";
+
+    async function checkAccess() {
+      try {
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+
+        // No login session
+        if (!session) {
+          window.location.replace("login.html");
+          return;
+        }
+
+        // Check whether the logged-in user is an authorized admin
+        const { data: allowed, error } = await supabase.rpc("is_admin");
+
+        if (error || allowed !== true) {
+          await supabase.auth.signOut();
+          window.location.replace("login.html");
+          return;
+        }
+
+        // Admin verified — show website
+        document.documentElement.classList.remove("auth-checking");
+
+      } catch (error) {
+        console.error("Authentication check failed:", error);
+        window.location.replace("login.html");
+      }
+    }
+
+    checkAccess();
+  </script>
 </head>
+
 <body>
 <header class="site-header">
   <div class="container nav-wrap">
     <a class="brand" href="index.html">Personal Services</a>
+
     <nav aria-label="Main navigation">
       <a href="#home">Home</a>
       <a href="#services">Services</a>
@@ -36,6 +87,7 @@
         <h2>Our Services</h2>
       </div>
     </div>
+
     <div id="servicesGrid" class="service-grid" aria-live="polite">
       <div class="loading">Loading services...</div>
     </div>
@@ -51,3 +103,4 @@
 <script type="module" src="js/app.js"></script>
 </body>
 </html>
+```
