@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login | Personal Services</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+<main class="auth-shell">
+  <section class="auth-card">
+    <a class="brand auth-brand" href="index.html">Personal Services</a>
+    <div class="section-heading">
+      <span class="eyebrow">Secure access</span>
+      <h1>Admin Login</h1>
+      <p>Sign in with your administrator account.</p>
+    </div>
+    <form id="loginForm" novalidate>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="username" required maxlength="254">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required maxlength="128">
+      <button class="btn btn-primary btn-full" type="submit">Login</button>
+      <div id="loginMessage" class="form-message" role="alert"></div>
+    </form>
+    <a class="back-link" href="index.html">← Back to website</a>
+  </section>
+</main>
+<script type="module" src="js/auth.js"></script>
+</body>
+</html>

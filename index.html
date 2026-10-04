@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Professional personal services with simple WhatsApp ordering.">
+  <title>Personal Services</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">Personal Services</a>
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="login.html">Admin Login</a>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero container">
+    <div>
+      <span class="eyebrow">Simple • Fast • Professional</span>
+      <h1>Personal Services</h1>
+      <p>Choose a service and place your order directly through WhatsApp.</p>
+      <a class="btn btn-primary" href="#services">View Services</a>
+    </div>
+  </section>
+
+  <section id="services" class="section container">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Available services</span>
+        <h2>Our Services</h2>
+      </div>
+    </div>
+    <div id="servicesGrid" class="service-grid" aria-live="polite">
+      <div class="loading">Loading services...</div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>© <span id="year"></span> Personal Services</span>
+  </div>
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
