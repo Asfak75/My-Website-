@@ -1,5 +1,22 @@
 import { supabase } from "./supabase.js";
 
+async function requireAdmin() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    location.replace("login.html");
+    return false;
+  }
+
+  const { data: allowed, error } = await supabase.rpc("is_admin");
+  if (error || allowed !== true) {
+    await supabase.auth.signOut();
+    location.replace("login.html");
+    return false;
+  }
+
+  return true;
+}
+
 const grid = document.getElementById("servicesGrid");
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -50,4 +67,15 @@ async function loadServices() {
   });
 }
 
-loadServices();
+document.getElementById("logoutBtn")?.addEventListener("click", async () => {
+  await supabase.auth.signOut();
+  location.replace("login.html");
+});
+
+async function init() {
+  if (!(await requireAdmin())) return;
+  await loadServices();
+}
+
+init();
+
