@@ -12,7 +12,7 @@ async function init() {
   const { data: { session } } = await supabase.auth.getSession();
   if (session) {
     const { data: allowed } = await supabase.rpc("is_admin");
-    if (allowed === true) location.replace("dashboard.html");
+    if (allowed === true) location.replace("index.html");
     else await supabase.auth.signOut();
   }
 }
@@ -51,7 +51,7 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  location.replace("dashboard.html");
+  location.replace("index.html");
 });
 
 supabase.auth.onAuthStateChange((event, session) => {
