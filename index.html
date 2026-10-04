@@ -1,5 +1,5 @@
-Admin Auth
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -8,7 +8,6 @@ Admin Auth
   <title>Personal Services</title>
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Hide the website until authentication is verified -->
   <style>
     html.auth-checking body {
       visibility: hidden !important;
@@ -19,7 +18,6 @@ Admin Auth
     document.documentElement.classList.add("auth-checking");
   </script>
 
-  <!-- Instant authentication gate -->
   <script type="module">
     import { supabase } from "./js/supabase.js";
 
@@ -29,13 +27,11 @@ Admin Auth
           data: { session }
         } = await supabase.auth.getSession();
 
-        // No login session
         if (!session) {
           window.location.replace("login.html");
           return;
         }
 
-        // Check whether the logged-in user is an authorized admin
         const { data: allowed, error } = await supabase.rpc("is_admin");
 
         if (error || allowed !== true) {
@@ -44,7 +40,6 @@ Admin Auth
           return;
         }
 
-        // Admin verified — show website
         document.documentElement.classList.remove("auth-checking");
 
       } catch (error) {
@@ -55,6 +50,7 @@ Admin Auth
 
     checkAccess();
   </script>
+
 </head>
 
 <body>
@@ -62,11 +58,12 @@ Admin Auth
   <div class="container nav-wrap">
     <a class="brand" href="index.html">Personal Services</a>
 
-    <nav aria-label="Main navigation">
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <button id="logoutBtn" class="nav-button" type="button">Logout</button>
-    </nav>
+<nav aria-label="Main navigation">
+  <a href="#home">Home</a>
+  <a href="#services">Services</a>
+  <button id="logoutBtn" class="nav-button" type="button">Logout</button>
+</nav>
+
   </div>
 </header>
 
@@ -88,9 +85,10 @@ Admin Auth
       </div>
     </div>
 
-    <div id="servicesGrid" class="service-grid" aria-live="polite">
-      <div class="loading">Loading services...</div>
-    </div>
+<div id="servicesGrid" class="service-grid" aria-live="polite">
+  <div class="loading">Loading services...</div>
+</div>
+
   </section>
 </main>
 
@@ -101,5 +99,6 @@ Admin Auth
 </footer>
 
 <script type="module" src="js/app.js"></script>
+
 </body>
 </html>
